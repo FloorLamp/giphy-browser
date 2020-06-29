@@ -26,7 +26,14 @@
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
-    "prettier": "2.0.5"
+    "@testing-library/react": "^10.4.3",
+    "babel-jest": "^26.1.0",
+    "babel-preset-gatsby": "^0.4.12",
+    "cross-fetch": "^3.0.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.1.0",
+    "prettier": "2.0.5",
+    "react-test-renderer": "^16.13.1"
   },
   "keywords": [
     "gatsby"
@@ -39,7 +46,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

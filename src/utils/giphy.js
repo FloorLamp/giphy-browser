@@ -1,3 +1,5 @@
+import fetch from "cross-fetch"
+
 const API_KEY = "luzY24RLgN382SQuw506TE3cS6LwmX0L"
 const GIF_ENDPOINT = "https://api.giphy.com/v1/gifs"
 
