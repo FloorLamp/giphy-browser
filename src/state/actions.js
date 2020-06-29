@@ -15,3 +15,14 @@ export const search = query => ({
     type: "SEARCH",
     query,
 })
+
+export const OPEN_IMAGE = "OPEN_IMAGE"
+export const openImage = url => ({
+    type: "OPEN_IMAGE",
+    url,
+})
+
+export const CLOSE_IMAGE = "CLOSE_IMAGE"
+export const closeImage = () => ({
+    type: "CLOSE_IMAGE",
+})
