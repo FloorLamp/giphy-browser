@@ -2,26 +2,23 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import React from "react"
 import { debounce } from "lodash"
+import { Icon, Input } from "semantic-ui-react"
+import "semantic-ui-css/components/input.min.css"
+import "semantic-ui-css/components/icon.min.css"
+
+import "./header.css"
 
 import { inputQuery, fetchSearchResults } from "../state/actions"
 
-const Header = ({ onChange, query }) => (
-    <header
-        style={{
-            background: `rebeccapurple`,
-            marginBottom: `1.45rem`,
-        }}
-    >
-        <div
-            style={{
-                margin: `0 auto`,
-                maxWidth: 960,
-                padding: `1.45rem 1.0875rem`,
-            }}
-        >
-            <input
-                type="text"
+const Header = ({ onChange, clearQuery, query }) => (
+    <header>
+        <div className="container search-container">
+            <Input
+                fluid
                 placeholder="Search GIFs..."
+                icon={
+                    !!query ? <Icon name="x" onClick={clearQuery} link /> : null
+                }
                 onChange={onChange}
                 value={query}
             />
@@ -38,10 +35,10 @@ const mapStateToProps = ({ query }) => {
     return { query }
 }
 
-// Debounce the fetching of search results for 300ms
+// Debounce the fetching of search results for 350ms
 const debouncedFetchSearchResults = debounce(
     dispatch => dispatch(fetchSearchResults()),
-    300
+    350
 )
 
 const mapDispatchToProps = dispatch => {
@@ -50,6 +47,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(inputQuery(e.target.value))
             debouncedFetchSearchResults(dispatch)
         },
+        clearQuery: () => dispatch(inputQuery("")),
     }
 }
 

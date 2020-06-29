@@ -1,0 +1,26 @@
+body {
+    background: rgb(10, 10, 10);
+}
+
+header {
+    background: rebeccapurple;
+    position: fixed;
+    width: 100%;
+}
+
+footer {
+    color: white;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.search-container {
+    padding: 1rem 1rem;
+}
+
+.main-container {
+    padding-top: 6rem;
+}
