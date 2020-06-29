@@ -8,7 +8,7 @@ export const fetchSearchResults = () => {
         }
 
         dispatch(startFetching())
-        fetchSearch(query).then(data => dispatch(receiveSearchResults(data)))
+        fetchSearch(query).then(data => dispatch(receiveGifs("results", data)))
     }
 }
 
@@ -20,7 +20,7 @@ export const fetchTrendingIfNeeded = () => {
         }
 
         dispatch(startFetching())
-        giphyTrending().then(data => dispatch(receiveTrending(data)))
+        giphyTrending().then(data => dispatch(receiveGifs("trending", data)))
     }
 }
 
@@ -35,10 +35,12 @@ export const fetchNextPage = () => {
         dispatch(startFetching())
         if (query) {
             fetchSearch(query, offset).then(data =>
-                dispatch(receiveSearchResults(data))
+                dispatch(receiveGifs("results", data))
             )
         } else {
-            giphyTrending(offset).then(data => dispatch(receiveTrending(data)))
+            giphyTrending(offset).then(data =>
+                dispatch(receiveGifs("trending", data))
+            )
         }
     }
 }
@@ -48,21 +50,16 @@ const startFetching = () => ({
     type: "START_FETCHING",
 })
 
-export const RECEIVE_TRENDING = "RECEIVE_TRENDING"
-export const receiveTrending = data => ({
-    type: "RECEIVE_TRENDING",
-    data,
-})
-
 export const INPUT_QUERY = "INPUT_QUERY"
 export const inputQuery = query => ({
     type: "INPUT_QUERY",
     query,
 })
 
-export const RECEIVE_SEARCH_RESULTS = "RECEIVE_SEARCH_RESULTS"
-const receiveSearchResults = data => ({
-    type: "RECEIVE_SEARCH_RESULTS",
+export const RECEIVE_GIFS = "RECEIVE_GIFS"
+const receiveGifs = (which, data) => ({
+    type: "RECEIVE_GIFS",
+    which,
     data,
 })
 

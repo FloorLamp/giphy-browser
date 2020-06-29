@@ -2,6 +2,7 @@ const initialState = {
     trending: [],
     results: [],
     query: "",
+    error: "",
     offset: 0,
     hasMore: false,
     openedImage: null,

@@ -40,6 +40,7 @@ class IndexPage extends Component {
     render() {
         const {
             query,
+            error,
             trending,
             results,
             openedImage,
@@ -57,6 +58,7 @@ class IndexPage extends Component {
                 {!!query && isDoneFetching && !results.length && (
                     <h2>No results found 😕</h2>
                 )}
+                {!!error && <h3 className="error">{error}</h3>}
             </Layout>
         )
     }
@@ -64,6 +66,7 @@ class IndexPage extends Component {
 
 IndexPage.propTypes = {
     query: PropTypes.string,
+    error: PropTypes.string,
     openedImage: PropTypes.object,
     results: PropTypes.array.isRequired,
     trending: PropTypes.array.isRequired,
@@ -75,13 +78,22 @@ IndexPage.propTypes = {
 
 const mapStateToProps = ({
     query,
+    error,
     results,
     trending,
     openedImage,
     isFetching,
     isDoneFetching,
 }) => {
-    return { query, results, trending, openedImage, isFetching, isDoneFetching }
+    return {
+        query,
+        error,
+        results,
+        trending,
+        openedImage,
+        isFetching,
+        isDoneFetching,
+    }
 }
 
 const mapDispatchToProps = dispatch => {
