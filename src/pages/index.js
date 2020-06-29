@@ -1,12 +1,16 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+import TrendingPage from "./trending"
 
-const IndexPage = () => (
-  <Layout>
-  </Layout>
-)
+class IndexPage extends Component {
+    render() {
+        return (
+            <Layout>
+                <TrendingPage />
+            </Layout>
+        )
+    }
+}
 
 export default IndexPage
