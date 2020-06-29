@@ -2,9 +2,14 @@ import React, { useState } from "react"
 
 import "./image.css"
 
+import { isSlowConnection } from "../utils/network"
+
 // Render a preview image initially, which will be replaced by the original when fully loaded
 const Image = ({ data: { preview, original, width, height }, onClose }) => {
     const [loaded, setLoaded] = useState(false)
+
+    // If slow connection, just show original loading
+    const showOriginal = loaded || isSlowConnection()
 
     return (
         <div className="full-size-wrapper" onClick={onClose}>
@@ -17,7 +22,7 @@ const Image = ({ data: { preview, original, width, height }, onClose }) => {
             />
             <img
                 className="original-image"
-                style={{ opacity: loaded ? 1 : 0 }}
+                style={{ opacity: showOriginal ? 1 : 0 }}
                 src={original}
                 onLoad={() => setLoaded(true)}
             />

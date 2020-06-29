@@ -3,14 +3,19 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 
 import { openImage } from "../state/actions"
+import { isSlowConnection } from "../utils/network"
 
 import "./grid.css"
 
-const Grid = ({ images, onClick }) =>
-    images.map(gif => {
+const Grid = ({ images, onClick }) => {
+    const showStillPreviews = isSlowConnection()
+
+    return images.map(gif => {
         // If fixed height 100px isn't available, use fixed height 200px
-        const src =
-            gif.images.fixed_height_small.url || gif.images.fixed_height.url
+        const src = showStillPreviews
+            ? gif.images.fixed_height_small_still.url ||
+              gif.images.fixed_height_still.url
+            : gif.images.fixed_height_small.url || gif.images.fixed_height.url
 
         return (
             <img
@@ -22,6 +27,7 @@ const Grid = ({ images, onClick }) =>
             />
         )
     })
+}
 
 Grid.propTypes = {
     images: PropTypes.array.isRequired,
