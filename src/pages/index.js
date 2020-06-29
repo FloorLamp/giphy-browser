@@ -3,15 +3,17 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Loader } from "semantic-ui-react"
 import "semantic-ui-css/components/loader.min.css"
+import Loadable from "@loadable/component"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
-import Grid from "../components/grid"
 import {
     fetchTrendingIfNeeded,
     fetchNextPage,
     closeImage,
 } from "../state/actions"
+
+const LoadableImage = Loadable(() => import("../components/image"))
+const LoadableGrid = Loadable(() => import("../components/grid"))
 
 import "./index.css"
 
@@ -51,9 +53,12 @@ class IndexPage extends Component {
         return (
             <Layout>
                 {!!openedImage ? (
-                    <Image data={openedImage} onClose={this.props.closeImage} />
+                    <LoadableImage
+                        data={openedImage}
+                        onClose={this.props.closeImage}
+                    />
                 ) : null}
-                <Grid images={!!query ? results : trending} />
+                <LoadableGrid images={!!query ? results : trending} />
                 <Loader active={isFetching} inline="centered" />
                 {!!query && isDoneFetching && !results.length && (
                     <h2>No results found 😕</h2>
