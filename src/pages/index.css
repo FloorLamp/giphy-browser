@@ -1,5 +1,6 @@
 body {
     background: rgb(10, 10, 10);
+    color: white;
 }
 
 header {
@@ -9,7 +10,7 @@ header {
 }
 
 footer {
-    color: white;
+    margin-top: 2rem;
 }
 
 .container {

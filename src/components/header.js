@@ -6,8 +6,6 @@ import { Icon, Input } from "semantic-ui-react"
 import "semantic-ui-css/components/input.min.css"
 import "semantic-ui-css/components/icon.min.css"
 
-import "./header.css"
-
 import { inputQuery, fetchSearchResults } from "../state/actions"
 
 const Header = ({ onChange, clearQuery, query }) => (

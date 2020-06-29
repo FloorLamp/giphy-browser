@@ -1,8 +1,5 @@
-.grid {
-
-}
-
 .grid-image {
     cursor: pointer;
     max-height: 100px;
+    margin: .2rem;
 }

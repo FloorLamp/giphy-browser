@@ -13,31 +13,38 @@ const gifs = (state = {}, action) => {
             return {
                 ...state,
                 isFetching: true,
+                isDoneFetching: false,
             }
         case INPUT_QUERY:
             return {
                 ...state,
                 query: action.query,
                 results: [],
+                isDoneFetching: false,
             }
-        case RECEIVE_SEARCH_RESULTS:
+        case RECEIVE_SEARCH_RESULTS: {
+            const offset =
+                action.data.pagination.offset + action.data.pagination.count
             return {
                 ...state,
                 results: state.results.concat(action.data.data),
                 isFetching: false,
-                offset:
-                    action.data.pagination.offset +
-                    action.data.pagination.count,
+                isDoneFetching: true,
+                offset,
+                hasMore: offset < action.data.pagination.total_count,
             }
-        case RECEIVE_TRENDING:
+        }
+        case RECEIVE_TRENDING: {
+            const offset =
+                action.data.pagination.offset + action.data.pagination.count
             return {
                 ...state,
                 trending: state.trending.concat(action.data.data),
                 isFetching: false,
-                offset:
-                    action.data.pagination.offset +
-                    action.data.pagination.count,
+                offset,
+                hasMore: offset < action.data.pagination.total_count,
             }
+        }
         case OPEN_IMAGE:
             return {
                 ...state,

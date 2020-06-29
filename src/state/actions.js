@@ -26,9 +26,9 @@ export const fetchTrendingIfNeeded = () => {
 
 export const fetchNextPage = () => {
     return (dispatch, getstate) => {
-        const { offset, query, isFetching } = getstate()
+        const { offset, query, isFetching, hasMore } = getstate()
 
-        if (isFetching) {
+        if (isFetching || !hasMore) {
             return
         }
 

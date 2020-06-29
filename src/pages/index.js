@@ -13,6 +13,8 @@ import {
     closeImage,
 } from "../state/actions"
 
+import "./index.css"
+
 class IndexPage extends Component {
     componentDidMount() {
         this.props.fetchTrendingIfNeeded()
@@ -36,15 +38,25 @@ class IndexPage extends Component {
     }
 
     render() {
-        const { query, trending, results, openedImage, isFetching } = this.props
+        const {
+            query,
+            trending,
+            results,
+            openedImage,
+            isFetching,
+            isDoneFetching,
+        } = this.props
 
         return (
             <Layout>
-                <Grid images={!!query ? results : trending} />
-                <Loader active={isFetching} inline="centered" />
                 {!!openedImage ? (
                     <Image data={openedImage} onClose={this.props.closeImage} />
                 ) : null}
+                <Grid images={!!query ? results : trending} />
+                <Loader active={isFetching} inline="centered" />
+                {!!query && isDoneFetching && !results.length && (
+                    <h2>No results found 😕</h2>
+                )}
             </Layout>
         )
     }
@@ -56,6 +68,7 @@ IndexPage.propTypes = {
     results: PropTypes.array.isRequired,
     trending: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
+    isDoneFetching: PropTypes.bool.isRequired,
     fetchTrendingIfNeeded: PropTypes.func.isRequired,
     closeImage: PropTypes.func.isRequired,
 }
@@ -66,8 +79,9 @@ const mapStateToProps = ({
     trending,
     openedImage,
     isFetching,
+    isDoneFetching,
 }) => {
-    return { query, results, trending, openedImage, isFetching }
+    return { query, results, trending, openedImage, isFetching, isDoneFetching }
 }
 
 const mapDispatchToProps = dispatch => {
