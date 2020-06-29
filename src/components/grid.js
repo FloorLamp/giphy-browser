@@ -7,15 +7,21 @@ import { openImage } from "../state/actions"
 import "./grid.css"
 
 const Grid = ({ images, onClick }) =>
-    images.map(gif => (
-        <img
-            key={gif.id}
-            className="grid-image"
-            src={gif.images.fixed_height_small.url}
-            alt={gif.title}
-            onClick={() => onClick(gif.images.original.url)}
-        />
-    ))
+    images.map(gif => {
+        // If fixed height 100px isn't available, use fixed height 200px
+        const src =
+            gif.images.fixed_height_small.url || gif.images.fixed_height.url
+
+        return (
+            <img
+                key={gif.id}
+                className="grid-image"
+                src={src}
+                alt={gif.title}
+                onClick={() => onClick(gif.images.original.url)}
+            />
+        )
+    })
 
 Grid.propTypes = {
     images: PropTypes.array.isRequired,

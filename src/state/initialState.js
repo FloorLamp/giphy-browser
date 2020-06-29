@@ -4,6 +4,7 @@ const initialState = {
     query: "",
     offset: 0,
     openedImage: "",
+    isFetching: false,
 }
 
 export default initialState

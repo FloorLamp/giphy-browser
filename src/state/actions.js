@@ -1,9 +1,37 @@
 import { fetchTrending as giphyTrending } from "../utils/giphy"
 
 export const fetchTrendingIfNeeded = () => {
-    return dispatch =>
+    return (dispatch, getstate) => {
+        const { isFetching, trending } = getstate()
+        if (trending.length || isFetching) {
+            return
+        }
+
+        dispatch(startFetching())
         giphyTrending().then(data => dispatch(receiveTrending(data)))
+    }
 }
+
+export const fetchNextPage = () => {
+    return (dispatch, getstate) => {
+        const { offset, query, isFetching } = getstate()
+
+        if (isFetching) {
+            return
+        }
+
+        dispatch(startFetching())
+        if (query) {
+        } else {
+            giphyTrending(offset).then(data => dispatch(receiveTrending(data)))
+        }
+    }
+}
+
+export const START_FETCHING = "START_FETCHING"
+const startFetching = () => ({
+    type: "START_FETCHING",
+})
 
 export const RECEIVE_TRENDING = "RECEIVE_TRENDING"
 export const receiveTrending = data => ({
