@@ -42,8 +42,8 @@ class IndexPage extends Component {
             <Layout>
                 <Grid images={!!query ? results : trending} />
                 <Loader active={isFetching} inline="centered" />
-                {openedImage ? (
-                    <Image url={openedImage} onClose={this.props.closeImage} />
+                {!!openedImage ? (
+                    <Image data={openedImage} onClose={this.props.closeImage} />
                 ) : null}
             </Layout>
         )
@@ -52,7 +52,7 @@ class IndexPage extends Component {
 
 IndexPage.propTypes = {
     query: PropTypes.string,
-    openedImage: PropTypes.string,
+    openedImage: PropTypes.object,
     results: PropTypes.array.isRequired,
     trending: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,

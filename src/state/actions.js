@@ -67,9 +67,10 @@ const receiveSearchResults = data => ({
 })
 
 export const OPEN_IMAGE = "OPEN_IMAGE"
-export const openImage = url => ({
+export const openImage = (preview, original) => ({
     type: "OPEN_IMAGE",
-    url,
+    preview,
+    original,
 })
 
 export const CLOSE_IMAGE = "CLOSE_IMAGE"

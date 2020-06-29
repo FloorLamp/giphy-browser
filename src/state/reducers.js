@@ -41,12 +41,17 @@ const gifs = (state = {}, action) => {
         case OPEN_IMAGE:
             return {
                 ...state,
-                openedImage: action.url,
+                openedImage: {
+                    preview: action.preview,
+                    original: action.original.url,
+                    width: action.original.width,
+                    height: action.original.height,
+                },
             }
         case CLOSE_IMAGE:
             return {
                 ...state,
-                openedImage: "",
+                openedImage: null,
             }
         default:
             return state

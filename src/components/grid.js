@@ -18,7 +18,7 @@ const Grid = ({ images, onClick }) =>
                 className="grid-image"
                 src={src}
                 alt={gif.title}
-                onClick={() => onClick(gif.images.original.url)}
+                onClick={() => onClick(src, gif.images.original)}
             />
         )
     })
@@ -34,7 +34,7 @@ const mapStateToProps = ({ offset }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: url => dispatch(openImage(url)),
+        onClick: (preview, original) => dispatch(openImage(preview, original)),
     }
 }
 

@@ -3,7 +3,7 @@ const initialState = {
     results: [],
     query: "",
     offset: 0,
-    openedImage: "",
+    openedImage: null,
     isFetching: false,
 }
 
