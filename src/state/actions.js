@@ -1,4 +1,16 @@
-import { fetchTrending as giphyTrending } from "../utils/giphy"
+import { fetchTrending as giphyTrending, fetchSearch } from "../utils/giphy"
+
+export const fetchSearchResults = () => {
+    return (dispatch, getstate) => {
+        const { query } = getstate()
+        if (!query) {
+            return
+        }
+
+        dispatch(startFetching())
+        fetchSearch(query).then(data => dispatch(receiveSearchResults(data)))
+    }
+}
 
 export const fetchTrendingIfNeeded = () => {
     return (dispatch, getstate) => {
@@ -22,6 +34,9 @@ export const fetchNextPage = () => {
 
         dispatch(startFetching())
         if (query) {
+            fetchSearch(query, offset).then(data =>
+                dispatch(receiveSearchResults(data))
+            )
         } else {
             giphyTrending(offset).then(data => dispatch(receiveTrending(data)))
         }
@@ -39,9 +54,16 @@ export const receiveTrending = data => ({
     data,
 })
 
-export const search = query => ({
-    type: "SEARCH",
+export const INPUT_QUERY = "INPUT_QUERY"
+export const inputQuery = query => ({
+    type: "INPUT_QUERY",
     query,
+})
+
+export const RECEIVE_SEARCH_RESULTS = "RECEIVE_SEARCH_RESULTS"
+const receiveSearchResults = data => ({
+    type: "RECEIVE_SEARCH_RESULTS",
+    data,
 })
 
 export const OPEN_IMAGE = "OPEN_IMAGE"

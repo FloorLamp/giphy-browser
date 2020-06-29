@@ -1,7 +1,11 @@
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
 import React from "react"
+import { debounce } from "lodash"
 
-const Header = ({ siteTitle }) => (
+import { inputQuery, fetchSearchResults } from "../state/actions"
+
+const Header = ({ onChange, query }) => (
     <header
         style={{
             background: `rebeccapurple`,
@@ -15,17 +19,38 @@ const Header = ({ siteTitle }) => (
                 padding: `1.45rem 1.0875rem`,
             }}
         >
-            <input type="text" placeholder="Search GIFs..." />
+            <input
+                type="text"
+                placeholder="Search GIFs..."
+                onChange={onChange}
+                value={query}
+            />
         </div>
     </header>
 )
 
 Header.propTypes = {
-    siteTitle: PropTypes.string,
+    query: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
 }
 
-Header.defaultProps = {
-    siteTitle: ``,
+const mapStateToProps = ({ query }) => {
+    return { query }
 }
 
-export default Header
+// Debounce the fetching of search results for 300ms
+const debouncedFetchSearchResults = debounce(
+    dispatch => dispatch(fetchSearchResults()),
+    300
+)
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onChange: e => {
+            dispatch(inputQuery(e.target.value))
+            debouncedFetchSearchResults(dispatch)
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

@@ -1,5 +1,7 @@
 import {
     START_FETCHING,
+    RECEIVE_SEARCH_RESULTS,
+    INPUT_QUERY,
     RECEIVE_TRENDING,
     OPEN_IMAGE,
     CLOSE_IMAGE,
@@ -11,6 +13,21 @@ const gifs = (state = {}, action) => {
             return {
                 ...state,
                 isFetching: true,
+            }
+        case INPUT_QUERY:
+            return {
+                ...state,
+                query: action.query,
+                results: [],
+            }
+        case RECEIVE_SEARCH_RESULTS:
+            return {
+                ...state,
+                results: state.results.concat(action.data.data),
+                isFetching: false,
+                offset:
+                    action.data.pagination.offset +
+                    action.data.pagination.count,
             }
         case RECEIVE_TRENDING:
             return {
